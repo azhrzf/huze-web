@@ -101,9 +101,11 @@ const HomeSpotlight = () => {
                         </List>
 
                         <Group mt={30}>
-                            <Button radius="xl" size="md" className={classes.control}>
-                                Baca blog
-                            </Button>
+                            <div className="bg-blue-500 rounded-full">
+                                <Button radius="xl" size="md" className={classes.control}>
+                                    Baca blog
+                                </Button>
+                            </div>
                             <Button variant="default" radius="xl" size="md" className={classes.control}>
                                 Mulai identifikasi
                             </Button>
