@@ -1,7 +1,7 @@
-import HomeBlog from "./Home/HomeBlog"
-import HomeSpotlight from "./Home/HomeSpotlight"
+import HomeBlog from "../../pages/Home/HomeBlog"
+import HomeSpotlight from "../../pages/Home/HomeSpotlight"
 
-const HomeComponent = () => {
+const HomeLayout = () => {
     return (
         <main>
             <section className="px-5 lg:px-0">
@@ -40,4 +40,4 @@ const HomeComponent = () => {
     // fix mantine and tailwind conflict
 }
 
-export default HomeComponent
+export default HomeLayout

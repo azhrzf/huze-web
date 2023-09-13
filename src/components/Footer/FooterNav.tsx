@@ -103,7 +103,7 @@ interface FooterLinksProps {
     }[];
 }
 
-const FooterComponent = ({ data }: FooterLinksProps) => {
+const FooterNav = ({ data }: FooterLinksProps) => {
     const { classes } = useStyles();
 
     const groups = data.map((group) => {
@@ -128,7 +128,7 @@ const FooterComponent = ({ data }: FooterLinksProps) => {
     });
 
     return (
-        <footer className={classes.footer}>
+        <footer className={`${classes.footer} md:px-5 lg:px-0`}>
             <Container className={classes.inner}>
                 <div className={classes.logo}>
                     <MantineLogo size={30} />
@@ -159,4 +159,4 @@ const FooterComponent = ({ data }: FooterLinksProps) => {
     );
 }
 
-export default FooterComponent
+export default FooterNav
