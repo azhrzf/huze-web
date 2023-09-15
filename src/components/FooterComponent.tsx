@@ -6,7 +6,7 @@ const FooterComponent = () => {
         <footer>
             <FooterNav data={[
                 {
-                    title: 'Layanan',
+                    title: 'Services',
                     links: [
                         { label: 'Identifier', link: '#' },
                         { label: 'Profile', link: '#' },
@@ -14,7 +14,7 @@ const FooterComponent = () => {
                     ],
                 },
                 {
-                    title: 'Komunitas',
+                    title: 'Community',
                     links: [
                         { label: 'Mobile', link: 'https://github.com/C23-PS404-Huze-Bangkit/mobile-development' },
                         { label: 'Machine Learning', link: 'https://github.com/C23-PS404-Huze-Bangkit/machine-learning' },
@@ -22,7 +22,7 @@ const FooterComponent = () => {
                     ],
                 },
                 {
-                    title: 'Tim',
+                    title: 'Team',
                     links: [
                         { label: 'About', link: '#' },
                         { label: 'Blog', link: '#' },

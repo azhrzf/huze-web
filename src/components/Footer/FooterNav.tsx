@@ -133,7 +133,7 @@ const FooterNav = ({ data }: FooterLinksProps) => {
                 <div className={classes.logo}>
                     <MantineLogo size={30} />
                     <Text size="xs" color="dimmed" className={classes.description}>
-                        Membantu pengguna untuk mengenal lebih jauh mengenai hewan peliharaannya.
+                        A site that can help users learn more about their pets and how to care for them.
                     </Text>
                 </div>
                 <div className={classes.groups}>{groups}</div>

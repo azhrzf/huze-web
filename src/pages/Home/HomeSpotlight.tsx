@@ -73,10 +73,10 @@ const HomeSpotlight = () => {
                 <div className={classes.inner}>
                     <div className={classes.content}>
                         <Title className={classes.title}>
-                            Identifikasi <span className={classes.highlight}>Ras</span> Anjing dan Kucing.
+                            Identify<span className={classes.highlight}>Dog and Cat</span>Breeds.
                         </Title>
                         <Text color="dimmed" mt="md">
-                            Situs yang dapat membantu pengguna untuk mengenal lebih jauh mengenai hewan peliharaannya beserta bagaimana cara merawatnya.
+                            A site that can help users learn more about their pets and how to care for them.
                         </Text>
 
                         <List
@@ -90,24 +90,24 @@ const HomeSpotlight = () => {
                             }
                         >
                             <List.Item>
-                                <b>Akurasi tinggi</b> – model yang kami gunakan dirancang oleh machine learning engginer bersertifikasi.
+                                <b>High accuracy</b> – the models we use are designed by certified machine learning engineers.
                             </List.Item>
                             <List.Item>
-                                <b>Gratis</b> – situs Huze dapat diakses secara gratis untuk identifikasi dalam kurun waktu yang ditentukan.
+                                <b>Free</b> – the Huze site can be accessed free of charge for identification within the specified time period.
                             </List.Item>
                             <List.Item>
-                                <b>Personalisasi</b> – pengguna dapat mengatur profil hewan peliharaannya untuk mendapatkan rekomendasi yang lebih akurat.
+                                <b>Personalization</b> – users can customize their pet's profile to get more accurate recommendations.
                             </List.Item>
                         </List>
 
                         <Group mt={30}>
                             <div className="bg-blue-500 rounded-full">
                                 <Button radius="xl" size="md" className={classes.control}>
-                                    Baca blog
+                                    Start Identifying
                                 </Button>
                             </div>
                             <Button variant="default" radius="xl" size="md" className={classes.control}>
-                                Mulai identifikasi
+                                Read Blog
                             </Button>
                         </Group>
                     </div>
