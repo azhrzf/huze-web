@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Text, Group, Button, createStyles, rem } from '@mantine/core';
+import { Text, Group, createStyles, rem } from '@mantine/core';
 import { Dropzone, MIME_TYPES } from '@mantine/dropzone';
 import { IconCloudUpload, IconX, IconDownload } from '@tabler/icons-react';
 
@@ -20,8 +20,8 @@ const useStyles = createStyles((theme) => ({
 
     control: {
         position: 'absolute',
-        width: rem(250),
-        left: `calc(50% - ${rem(125)})`,
+        width: rem(200),
+        left: `calc(50% - ${rem(100)})`,
         bottom: rem(-20),
     },
 }));
@@ -62,20 +62,21 @@ const IdentifyDrop = () => {
                     </Group>
 
                     <Text ta="center" fw={700} fz="lg" mt="xl">
-                        <Dropzone.Accept>Drop files here</Dropzone.Accept>
-                        <Dropzone.Reject>Pdf file less than 30mb</Dropzone.Reject>
-                        <Dropzone.Idle>Upload resume</Dropzone.Idle>
+                        <Dropzone.Accept>Drop image here</Dropzone.Accept>
+                        <Dropzone.Reject>image less than 5mb</Dropzone.Reject>
+                        <Dropzone.Idle>Upload image</Dropzone.Idle>
                     </Text>
                     <Text ta="center" fz="sm" mt="xs" c="dimmed">
-                        Drag&apos;n&apos;drop files here to upload. We can accept only <i>.pdf</i> files that
-                        are less than 30mb in size.
+                        Drag&apos;n&apos;drop image here to upload. We can accept only <i>.jpg, .jpeg, and .png</i> image that
+                        are less than 5mb in size.
                     </Text>
                 </div>
             </Dropzone>
-
-            <Button className={classes.control} size="md" radius="xl" onClick={() => openRef.current?.()}>
-                Select files
-            </Button>
+            <button className={classes.control} onClick={() => openRef.current?.()}>
+                <div className="bg-[#3B82F6] hover:bg-[#1C7ED6] rounded-xl py-2">
+                    <p className="text-white text-lg font-semibold">Select file</p>
+                </div>
+            </button>
         </div>
     );
 }

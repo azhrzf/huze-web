@@ -1,6 +1,7 @@
+import huzelogo from "../../assets/images/logos/huzelogo.png"
 import { createStyles, Text, Container, ActionIcon, Group, rem } from '@mantine/core';
 import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons-react';
-import { MantineLogo } from '@mantine/ds';
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
     footer: {
@@ -48,10 +49,6 @@ const useStyles = createStyles((theme) => ({
         [theme.fn.smallerThan('sm')]: {
             display: 'none',
         },
-    },
-
-    wrapper: {
-        width: rem(160),
     },
 
     link: {
@@ -120,7 +117,7 @@ const FooterNav = ({ data }: FooterLinksProps) => {
         ));
 
         return (
-            <div className={classes.wrapper} key={group.title}>
+            <div className="ml-16" key={group.title}>
                 <Text className={classes.title}>{group.title}</Text>
                 {links}
             </div>
@@ -128,10 +125,12 @@ const FooterNav = ({ data }: FooterLinksProps) => {
     });
 
     return (
-        <footer className={`${classes.footer} md:px-5 lg:px-0`}>
+        <footer className={classes.footer} >
             <Container className={classes.inner}>
                 <div className={classes.logo}>
-                    <MantineLogo size={30} />
+                    <Link to="/">
+                        <img src={huzelogo} alt="logo" className="w-20" />
+                    </Link>
                     <Text size="xs" color="dimmed" className={classes.description}>
                         A site that can help users learn more about their pets and how to care for them.
                     </Text>

@@ -1,4 +1,4 @@
-import huzelogo from "../../assets/images/huzelogo.png"
+import huzelogo from "../../assets/images/logos/huzelogo.png"
 import { NavLink, Link } from "react-router-dom"
 import {
     createStyles,
@@ -143,7 +143,7 @@ export default function HeaderNav() {
     const { classes, theme } = useStyles();
 
     const links = mockdata.map((item) => (
-        <Link to={item.title.toLowerCase()} key={item.title}>
+        <Link to={item.title.toLowerCase()} key={item.title} className="px-5 md:px-0">
             <UnstyledButton className={classes.subLink}>
                 <Group noWrap align="flex-start">
                     <ThemeIcon size={34} variant="default" radius="md">
@@ -166,7 +166,9 @@ export default function HeaderNav() {
         <Box pb={120}>
             <Header height={60} px="md">
                 <Group className="px-5 lg:px-10 lg:container mx-auto xl:max-w-5xl" position="apart" sx={{ height: '100%' }}>
-                    <img src={huzelogo} alt="logo" className="w-20" />
+                    <Link to="/">
+                        <img src={huzelogo} alt="logo" className="w-20" />
+                    </Link>
                     <Group sx={{ height: '100%' }} spacing={0} className={classes.hiddenMobile}>
                         <NavLink to="." className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>Home</NavLink>
                         <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>

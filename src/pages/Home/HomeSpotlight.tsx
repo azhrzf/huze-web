@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom"
+import drawermg from "../../assets/images/drawers/pria_dengan_anjing_dan_kucing.png"
 import {
     createStyles,
-    // Image,
+    Image,
     Container,
     Title,
     Button,
@@ -18,7 +20,7 @@ const useStyles = createStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         paddingTop: `calc(${theme.spacing.xl} * 0.3)`,
-        paddingBottom: `calc(${theme.spacing.xl} * 6)`,
+        paddingBottom: `calc(${theme.spacing.xl} * 1)`,
     },
 
     content: {
@@ -101,17 +103,21 @@ const HomeSpotlight = () => {
                         </List>
 
                         <Group mt={30}>
-                            <div className="bg-blue-500 rounded-full">
-                                <Button radius="xl" size="md" className={classes.control}>
-                                    Start Identifying
+                            <Link to="/identify">
+                                <div className="bg-blue-500 rounded-full">
+                                    <Button radius="xl" size="md" className={classes.control}>
+                                        Start Identifying
+                                    </Button>
+                                </div>
+                            </Link>
+                            <Link to="/blog">
+                                <Button variant="default" radius="xl" size="md" className={classes.control}>
+                                    Read Blog
                                 </Button>
-                            </div>
-                            <Button variant="default" radius="xl" size="md" className={classes.control}>
-                                Read Blog
-                            </Button>
+                            </Link>
                         </Group>
                     </div>
-                    {/* <Image src={image} className={classes.image} /> */}
+                    <Image src={drawermg} className={classes.image} />
                 </div>
             </Container>
         </div>
