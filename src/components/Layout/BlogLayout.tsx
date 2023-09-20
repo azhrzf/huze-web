@@ -4,6 +4,8 @@ import { useForm } from '@mantine/form';
 import { TextInput, Button } from '@mantine/core';
 import BlogSection from "../../pages/Blog/BlogSection"
 import IntroLayout from './IntroLayout';
+import { InfinitySpin } from 'react-loader-spinner'
+import { usedApi, version } from '../../RouteApi'
 
 const BlogLayout = () => {
 
@@ -29,16 +31,22 @@ const BlogLayout = () => {
 
     const [blogData, setBlogData] = useState([])
     const [blogDataHandler, setBlogDataHandler] = useState([])
+    const [isError, setIsError] = useState(false)
+    const [errorCode, setErrorCode] = useState(404)
 
     useEffect(() => {
         const fetchBlogData = async () => {
             try {
-                const res = await axios.get("http://localhost:3000/api/v1/blogs")
+                const res = await axios.get(`${usedApi}${version}/blogs`)
+                if (res.data.code && res.data.status === 'error') {
+                    setErrorCode(res.data.code)
+                    throw new Error(res.data.code)
+                }
                 setBlogData(res.data.data.blogs)
                 setBlogDataHandler(res.data.data.blogs)
             }
             catch (error) {
-                console.error('Error fetching data:', error);
+                setIsError(true)
             }
         }
 
@@ -57,7 +65,7 @@ const BlogLayout = () => {
     }
 
     interface Blog {
-        id: number;
+        id: string;
         thumbnail: string;
         title: string;
         article: string;
@@ -65,11 +73,26 @@ const BlogLayout = () => {
         tag: string;
     }
 
+    if (isError) {
+        return `${errorCode}`
+    }
+
+    if (!blogData) {
+        return (
+            <div className="container mx-auto max-w-screen-lg px-5 md:px-10 flex justify-center align-middle">
+                <InfinitySpin
+                    color="#3B82F6"
+                />
+            </div>
+        )
+    }
+
     return (
         <section className="container mx-auto max-w-screen-lg px-5 md:px-10">
             <IntroLayout text="Welcome to our blog dedicated to the wonderful world of pet dogs and cats, where we share insights, tips, and heartwarming stories about our furry companions." />
             <div className="block md:flex justify-between gap-3 mb-7">
                 <div className="flex gap-2 mb-5 md:mb-0">
+                    <Button variant="light" className="bg-[#E7F5FF]" onClick={() => handleSearch("", false)}>All</Button>
                     {[...new Map(blogData.map((blog: Blog) => [blog.tag, blog])).values()].map((blog: Blog) => {
                         return (
                             <Button variant="light" className="bg-[#E7F5FF]" onClick={() => handleSearch(blog.tag, true)}>{blog.tag}</Button>
@@ -91,11 +114,12 @@ const BlogLayout = () => {
                             <BlogSection
                                 key={blog.id}
                                 image={blog.thumbnail}
-                                link={`/${blog.id}`}
+                                link={blog.id}
                                 title={blog.title}
                                 description={shortenSentence(blog.article, 20)}
-                                rating="4.9"
+                                rating={blog.tag}
                                 author={{ name: blog.writer, image: blog.thumbnail }}
+                                className="mb-5 md:mb-0"
                             />
                         )
                     })

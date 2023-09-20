@@ -3,6 +3,7 @@ import LayoutComponent from "./components/LayoutComponent";
 import HomeLayout from "./components/Layout/HomeLayout";
 import IdentifyLayout from "./components/Layout/IdentifyLayout";
 import BlogLayout from "./components/Layout/BlogLayout";
+import BlogDetailLayout from "./components/Layout/BlogDetailLayout";
 import PetsLayout from "./components/Layout/PetsLayout";
 import ProfileLayout from "./components/Layout/ProfileLayout";
 import ShopLayout from "./components/Layout/ShopLayout";
@@ -17,6 +18,7 @@ const App = () => {
           <Route index element={<HomeLayout />} />
           <Route path="identify" element={<IdentifyLayout/>}/>
           <Route path="blog" element={<BlogLayout />} />
+          <Route path="blog/:blogId" element={<BlogDetailLayout />} />
           <Route path="pets" element={<PetsLayout />} />
           <Route path="profile" element={<ProfileLayout />} />
           <Route path="shop" element={<ShopLayout />} />

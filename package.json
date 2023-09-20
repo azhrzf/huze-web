@@ -32,11 +32,11 @@
     "axios": "^1.5.0",
     "bcrypt": "^5.1.1",
     "dayjs": "^1.11.9",
-    "dotenv": "^16.3.1",
     "embla-carousel-react": "^8.0.0-rc12",
     "nanoid": "^3.3.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loader-spinner": "^5.4.5",
     "react-router-dom": "^6.15.0",
     "ts-node": "^10.9.1"
   },

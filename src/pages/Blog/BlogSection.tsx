@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { IconBookmark, IconHeart, IconShare } from '@tabler/icons-react';
 import {
     Card,
@@ -69,46 +70,46 @@ const BlogSection = ({
     const linkProps = { href: link, target: '_blank', rel: 'noopener noreferrer' };
 
     return (
-        <Card withBorder radius="md" className={cx(classes.card, className)} {...others}>
-            <Card.Section>
-                <a {...linkProps}>
+        <Link to={`${link}`}>
+            <Card withBorder radius="md" className={cx(classes.card, className)} {...others}>
+                <Card.Section>
                     <Image src={image} height={180} />
-                </a>
-            </Card.Section>
+                </Card.Section>
 
-            <Badge className={classes.rating} variant="gradient" gradient={{ from: 'yellow', to: 'red' }}>
-                {rating}
-            </Badge>
+                <Badge className={classes.rating} variant="gradient" gradient={{ from: 'yellow', to: 'red' }}>
+                    {rating}
+                </Badge>
 
-            <Text className={classes.title} fw={500} component="a" {...linkProps}>
-                {title}
-            </Text>
+                <Text className={classes.title} fw={500} component="a" {...linkProps}>
+                    {title}
+                </Text>
 
-            <Text fz="sm" color="dimmed" lineClamp={4}>
-                {description}
-            </Text>
+                <Text fz="sm" color="dimmed" lineClamp={4}>
+                    {description}
+                </Text>
 
-            <Group position="apart" className={classes.footer}>
-                <Center>
-                    <Avatar src={author.image} size={24} radius="xl" mr="xs" />
-                    <Text fz="sm" inline>
-                        {author.name}
-                    </Text>
-                </Center>
+                <Group position="apart" className={classes.footer}>
+                    <Center>
+                        <Avatar src={author.image} size={24} radius="xl" mr="xs" />
+                        <Text fz="sm" inline>
+                            {author.name}
+                        </Text>
+                    </Center>
 
-                <Group spacing={8} mr={0}>
-                    <ActionIcon className={classes.action}>
-                        <IconHeart size="1rem" color={theme.colors.red[6]} />
-                    </ActionIcon>
-                    <ActionIcon className={classes.action}>
-                        <IconBookmark size="1rem" color={theme.colors.yellow[7]} />
-                    </ActionIcon>
-                    <ActionIcon className={classes.action}>
-                        <IconShare size="1rem" />
-                    </ActionIcon>
+                    <Group spacing={8} mr={0}>
+                        <ActionIcon className={classes.action}>
+                            <IconHeart size="1rem" color={theme.colors.red[6]} />
+                        </ActionIcon>
+                        <ActionIcon className={classes.action}>
+                            <IconBookmark size="1rem" color={theme.colors.yellow[7]} />
+                        </ActionIcon>
+                        <ActionIcon className={classes.action}>
+                            <IconShare size="1rem" />
+                        </ActionIcon>
+                    </Group>
                 </Group>
-            </Group>
-        </Card>
+            </Card>
+        </Link>
     );
 }
 
