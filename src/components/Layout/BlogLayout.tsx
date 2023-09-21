@@ -115,7 +115,7 @@ const BlogLayout = () => {
                                 key={blog.id}
                                 image={blog.thumbnail}
                                 link={blog.id}
-                                title={blog.title}
+                                title={shortenSentence(blog.title, 7)}
                                 description={shortenSentence(blog.article, 20)}
                                 rating={blog.tag}
                                 author={{ name: blog.writer, image: blog.thumbnail }}
