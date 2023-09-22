@@ -1,14 +1,16 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import LayoutComponent from "./components/LayoutComponent";
-import HomeLayout from "./components/Layout/HomeLayout";
-import IdentifyLayout from "./components/Layout/IdentifyLayout";
-import BlogLayout from "./components/Layout/BlogLayout";
-import BlogDetailLayout from "./components/Layout/BlogDetailLayout";
-import PetsLayout from "./components/Layout/PetsLayout";
-import ProfileLayout from "./components/Layout/ProfileLayout";
-import ShopLayout from "./components/Layout/ShopLayout";
-import HuzepediaLayout from "./components/Layout/HuzepediaLayout";
-import AboutLayout from "./components/Layout/AboutLayout";
+import HomeLayout from "./pages/Home";
+import IdentifyLayout from "./pages/Identify";
+import BlogLayout from "./pages/Blog";
+import BlogDetailLayout from "./pages/BlogDetail";
+import PetsLayout from "./pages/Pets";
+import ProfileLayout from "./pages/Profile";
+import ShopLayout from "./pages/Shop";
+import HuzepediaLayout from "./pages/Huzepedia";
+import HzuepediaDetailCatsLayout from "./pages/HuzepediaDetail/HuzepediaDetailCats";
+import HzuepediaDetailDogsLayout from "./pages/HuzepediaDetail/HuzepediaDetailDogs";
+import AboutLayout from "./pages/About";
 
 const App = () => {
   return (
@@ -16,13 +18,15 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LayoutComponent />}>
           <Route index element={<HomeLayout />} />
-          <Route path="identify" element={<IdentifyLayout/>}/>
+          <Route path="identify" element={<IdentifyLayout />} />
           <Route path="blog" element={<BlogLayout />} />
           <Route path="blog/:blogId" element={<BlogDetailLayout />} />
           <Route path="pets" element={<PetsLayout />} />
           <Route path="profile" element={<ProfileLayout />} />
           <Route path="shop" element={<ShopLayout />} />
           <Route path="huzepedia" element={<HuzepediaLayout />} />
+          <Route path="huzepedia/cats/:catId" element={<HzuepediaDetailCatsLayout />} />
+          <Route path="huzepedia/dogs/:dogId" element={<HzuepediaDetailDogsLayout />} />
           <Route path="about" element={<AboutLayout />} />
         </Route>
       </Routes>

@@ -1,5 +1,5 @@
-import PetsList from "../../pages/Pets/PetsList"
-import IntroLayout from "./IntroLayout";
+import PetsList from "./PetsList"
+import IntroLayout from "../../components/Intro";
 import { TextInput, Button } from '@mantine/core';
 import { randomId } from '@mantine/hooks';
 import { useForm } from '@mantine/form';

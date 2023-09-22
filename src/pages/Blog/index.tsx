@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useForm } from '@mantine/form';
 import { TextInput, Button } from '@mantine/core';
-import BlogSection from "../../pages/Blog/BlogSection"
-import IntroLayout from './IntroLayout';
+import BlogSection from "./BlogSection"
+import IntroLayout from '../../components/Intro';
 import { InfinitySpin } from 'react-loader-spinner'
 import { usedApi, version } from '../../RouteApi'
 

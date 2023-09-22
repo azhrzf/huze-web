@@ -4,8 +4,9 @@ import axios from 'axios';
 import { usedApi, version } from '../../RouteApi'
 import { Paper, Text, Title, Button, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { Link } from 'react-router-dom';
 
-const HuzePediaList = () => {
+const HuzepediaList = () => {
 
     const form = useForm({
         initialValues: {
@@ -162,19 +163,18 @@ const HuzePediaList = () => {
                         backgroundImage: `url(${cat.image})`
                     }
                     return (
-                        <Paper key={cat.breed} shadow="md" p="xl" radius="md" style={card} className="h-96 flex flex-col justify-between items-start background mb-8 md:mb-0">
-                            <div>
-                                <Text size="xs" className="text-white opacity-70 font-bold uppercase drop-shadow-2xl">
-                                    <p className='drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]'>Cat</p>
-                                </Text>
-                                <Title order={3} className="text-white font-extrabold leading-5d text-4xl drop-shadow-2xl">
-                                    <p className='drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]'>{cat.breed}</p>
-                                </Title>
-                            </div>
-                            <Button className="bg-[#3B82F6]" variant="filled" color="blue">
-                                Read article
-                            </Button>
-                        </Paper>
+                        <Link relative='path' to={`./cats/${cat.id}`}>
+                            <Paper key={cat.breed} shadow="md" p="xl" radius="md" style={card} className="h-96 flex flex-col justify-end items-start background mb-8 md:mb-0 transition-all ease-in-out duration-300 hover:scale-95 cursor-pointer">
+                                <div>
+                                    <Text size="xs" className="text-white opacity-70 font-bold uppercase drop-shadow-2xl">
+                                        <p className='drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]'>Cat</p>
+                                    </Text>
+                                    <Title order={3} className="text-white font-extrabold leading-5d text-4xl drop-shadow-2xl">
+                                        <p className='drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]'>{cat.breed}</p>
+                                    </Title>
+                                </div>
+                            </Paper>
+                        </Link>
                     )
                 })}
                 {form.values.dogs && dogDataHandler.map((dog: Dog) => {
@@ -184,19 +184,18 @@ const HuzePediaList = () => {
                         backgroundImage: `url(${dog.image})`
                     }
                     return (
-                        <Paper key={dog.breed} shadow="md" p="xl" radius="md" style={card} className="h-96 flex flex-col justify-between items-start background mb-8 md:mb-0">
+                        <Link relative='path' to={`./dogs/${dog.id}`}>
+                        <Paper key={dog.breed} shadow="md" p="xl" radius="md" style={card} className="h-96 flex flex-col justify-end items-start background mb-8 md:mb-0 transition-all ease-in-out duration-300 hover:scale-95 cursor-pointer">
                             <div>
-                                <Text size="xs" className="text-white opacity-70 font-bold uppercase drop-shadow-2xl">
+                                <Text size="xs" className="text-white opacity-80 font-bold uppercase drop-shadow-2xl">
                                     <p className='drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]'>Dog</p>
                                 </Text>
                                 <Title order={3} className="text-white font-extrabold leading-5d text-4xl drop-shadow-2xl">
                                     <p className='drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]'>{dog.breed}</p>
                                 </Title>
                             </div>
-                            <Button className="bg-[#3B82F6]" variant="filled" color="blue">
-                                Read article
-                            </Button>
                         </Paper>
+                        </Link>
                     )
                 })}
             </article>
@@ -204,4 +203,4 @@ const HuzePediaList = () => {
     )
 }
 
-export default HuzePediaList
+export default HuzepediaList

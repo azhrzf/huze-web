@@ -1,5 +1,5 @@
-import IdentifyDrop from "../../pages/Identify/IdentifyDrop"
-import IntroLayout from "./IntroLayout"
+import IdentifyDrop from "./IdentifyDrop"
+import IntroLayout from "../../components/Intro"
 
 const IdentifyLayout = () => {
     return (

@@ -1,4 +1,4 @@
-import IntroNav from "../Intro/IntroNav";
+import IntroNav from "./IntroNav";
 
 const IntroLayout = ({ text }: { text: string }) => {
     return <IntroNav text={text} />

@@ -1,4 +1,4 @@
-import BlogDetail from "../../pages/BlogDetail/BlogDetail"
+import BlogDetail from "./BlogDetail"
 import { InfinitySpin } from 'react-loader-spinner'
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from 'react';

@@ -1,4 +1,4 @@
-import HomeSpotlight from "../../pages/Home/HomeSpotlight"
+import HomeSpotlight from "./HomeSpotlight"
 
 const HomeLayout = () => {
     return (

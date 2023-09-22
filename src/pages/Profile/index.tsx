@@ -1,5 +1,5 @@
 
-import ProfileSetting from "../../pages/Profile/ProfileSetting"
+import ProfileSetting from "./ProfileSetting"
 
 const ProfileLayout = () => {
     return (
