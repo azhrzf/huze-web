@@ -53,13 +53,13 @@ const BlogLayout = () => {
         fetchBlogData()
     }, [])
 
-    const handleSearch = (filter: string, tag: boolean = false) => {
+    const handleSearch = (filter: string, label: boolean = false) => {
         setBlogDataHandler(blogData.filter((blog: Blog) => {
-            if (tag) {
-                return blog.tag === filter
+            if (label) {
+                return blog.label === filter
             }
             else {
-                return searchContent(`${blog.title} ${blog.article} ${blog.writer} ${blog.tag}`, filter)
+                return searchContent(`${blog.title} ${blog.article} ${blog.writer} ${blog.label}`, filter)
             }
         }))
     }
@@ -70,7 +70,7 @@ const BlogLayout = () => {
         title: string;
         article: string;
         writer: string;
-        tag: string;
+        label: string;
     }
 
     if (isError) {
@@ -93,9 +93,9 @@ const BlogLayout = () => {
             <div className="block md:flex justify-between gap-3 mb-7">
                 <div className="flex gap-2 mb-5 md:mb-0">
                     <Button variant="light" className="bg-[#E7F5FF]" onClick={() => handleSearch("", false)}>All</Button>
-                    {[...new Map(blogData.map((blog: Blog) => [blog.tag, blog])).values()].map((blog: Blog) => {
+                    {[...new Map(blogData.map((blog: Blog) => [blog.label, blog])).values()].map((blog: Blog) => {
                         return (
-                            <Button variant="light" className="bg-[#E7F5FF]" onClick={() => handleSearch(blog.tag, true)}>{blog.tag}</Button>
+                            <Button variant="light" className="bg-[#E7F5FF]" onClick={() => handleSearch(blog.label, true)}>{blog.label}</Button>
                         )
                     })}
                 </div>
@@ -111,19 +111,20 @@ const BlogLayout = () => {
                 <article className="block md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {blogDataHandler.map((blog: Blog) => {
                         return (
-                            <BlogSection
-                                key={blog.id}
-                                image={blog.thumbnail}
-                                link={blog.id}
-                                title={shortenSentence(blog.title, 7)}
-                                description={shortenSentence(blog.article, 20)}
-                                rating={blog.tag}
-                                author={{ name: blog.writer, image: blog.thumbnail }}
-                                className="mb-5 md:mb-0"
-                            />
+                            <div className="h-full">
+                                <BlogSection
+                                    key={blog.id}
+                                    image={blog.thumbnail}
+                                    link={blog.id}
+                                    title={blog.title}
+                                    description={shortenSentence(blog.article, 20)}
+                                    rating={blog.label}
+                                    author={{ name: blog.writer, image: blog.thumbnail }}
+                                    className="mb-5 md:mb-0 h-full flex flex-col justify-between"
+                                />
+                            </div>
                         )
-                    })
-                    }
+                    })}
                 </article>
             </div>
         </section>

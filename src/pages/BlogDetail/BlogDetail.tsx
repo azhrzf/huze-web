@@ -33,15 +33,19 @@ interface Blog {
     title: string;
     article: string;
     writer: string;
-    tag: string;
+    label: string;
 }
 
 const splitSentence = (sentence: string) => {
-    const totalWord = sentence.split(' ').length
-    const halfWord = Math.floor(totalWord / 2)
+    if (!sentence) {
+        return { first: '', last: '' };
+    }
 
-    return { fitst: sentence.split(' ').slice(0, halfWord).join(' '), last: sentence.split(' ').slice(halfWord, sentence.length).join(' ') }
-}
+    const totalWord = sentence.split(' ').length;
+    const halfWord = Math.floor(totalWord / 2);
+
+    return { first: sentence.split(' ').slice(0, halfWord).join(' '), last: sentence.split(' ').slice(halfWord, sentence.length).join(' ') };
+};
 
 const BlogDetail = ({ data }: { data: Blog }) => {
     const { classes } = useStyles();
@@ -52,17 +56,19 @@ const BlogDetail = ({ data }: { data: Blog }) => {
                 <img src={data.thumbnail} alt={data.title} className="w-full rounded-lg mb-10" />
                 <h1 className={classes.title}>
                     <Text component="span" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} inherit>
-                        {splitSentence(data.title).fitst}
+                        {splitSentence(data.title).first}
                     </Text>{' '}
                     {splitSentence(data.title).last}
                 </h1>
             </div>
             <Text className={classes.description} color="dimmed">
-                {data.article.split('\\n\\n').map(article => {
-                    return <p className='mb-5 text-xl'>{article.split('\\n').map(innerArticle => {
-                        return <p className='mb-5'>{innerArticle}</p>
-                    })}</p>
-                })}
+                {data.article.split('\r\n\r\n').map((paragraph, index) => (
+                    <p key={index} className='mb-5 text-xl'>
+                        {paragraph.split('\r\n').map((line, index) => (
+                            <span key={index} className='mb-5'>{line}</span>
+                        ))}
+                    </p>
+                ))}
             </Text>
         </article>
     )

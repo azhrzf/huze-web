@@ -199,7 +199,7 @@ export default function HeaderNav() {
                                 </SimpleGrid>
                             </HoverCard.Dropdown>
                         </HoverCard>
-                        <NavLink to="blog" className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>Blog</NavLink>
+                        <NavLink to="blogs" className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>Blog</NavLink>
                         <NavLink to="about" className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>About</NavLink>
                     </Group>
 
@@ -235,7 +235,7 @@ export default function HeaderNav() {
                                 <IconChevronDown size={16} color={theme.fn.primaryColor()} />
                             </Center>
                         </UnstyledButton>
-                        <NavLink to="blog" className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>Blog</NavLink>
+                        <NavLink to="blogs" className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>Blog</NavLink>
                         <NavLink to="about" className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>About</NavLink>
                     </section>
                     <Collapse in={linksOpened}>{links}</Collapse>

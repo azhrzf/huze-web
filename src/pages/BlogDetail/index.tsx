@@ -12,7 +12,7 @@ const BlogDetailLayout = () => {
         title: string;
         article: string;
         writer: string;
-        tag: string;
+        label: string;
     }
 
     const { blogId } = useParams()

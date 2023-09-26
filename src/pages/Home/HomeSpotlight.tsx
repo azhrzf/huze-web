@@ -103,14 +103,14 @@ const HomeSpotlight = () => {
                         </List>
 
                         <Group mt={30}>
-                            <Link to="/identify">
+                            <Link to="identify">
                                 <div className="bg-blue-500 rounded-full">
                                     <Button radius="xl" size="md" className={classes.control}>
                                         Start Identifying
                                     </Button>
                                 </div>
                             </Link>
-                            <Link to="/blog">
+                            <Link to="blogs">
                                 <Button variant="default" radius="xl" size="md" className={classes.control}>
                                     Read Blog
                                 </Button>
