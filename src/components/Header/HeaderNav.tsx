@@ -23,11 +23,13 @@ import { useDisclosure } from '@mantine/hooks';
 import {
     IconUserCircle,
     IconPaw,
-    IconBasket,
     IconScan,
     IconChevronDown,
     IconAddressBook
 } from '@tabler/icons-react';
+import Cookies from 'universal-cookie';
+import { GlobalContext } from "../../App";
+import { useContext } from "react";
 
 const useStyles = createStyles((theme) => ({
 
@@ -126,18 +128,16 @@ const mockdata = [
         description: 'Yanma is capable of seeing 360 degrees without',
     },
     {
-        icon: IconBasket,
-        title: 'Shop',
-        description: 'The shell’s rounded shape and the grooves on its.',
-    },
-    {
         icon: IconAddressBook,
         title: 'HuzePedia',
         description: 'The shell’s rounded shape and the grooves on its.',
     },
 ];
 
+const cookies = new Cookies()
+
 export default function HeaderNav() {
+
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { classes, theme } = useStyles();
@@ -161,6 +161,86 @@ export default function HeaderNav() {
             </UnstyledButton>
         </Link>
     ));
+
+    const { refresh, updateContext } = useContext(GlobalContext);
+
+    const SetButtonSm = () => {
+        if (cookies.get('token')) {
+            return (
+                <>
+                    <Link to="profile" className="ml-4">
+                        <img src={selectImage()} alt="profile" className="w-10 h-10 rounded-full object-cover" />
+                    </Link>
+                    <Link to="login">
+                        <div className="bg-[#FA5252] rounded-sm flex align-middle justify-center hover:bg-[#F03E3E]">
+                            <Button variant="filled" color="red" onClick={() => {
+                                cookies.remove('token')
+                                cookies.remove('image')
+                                cookies.remove('username')
+                                updateContext(!refresh);
+                            }} >Logout</Button>
+                        </div>
+                    </Link>
+                </>
+
+            )
+        }
+        return (
+            <>
+                <Link to="login">
+                    <div className="rounded-sm flex align-middle justify-center">
+                        <Button variant="default" className="w-full">Log in</Button>
+                    </div>
+                </Link>
+                <Link to="register">
+                    <div className="bg-blue-500 rounded-sm flex align-middle justify-center hover:bg-[#1C7ED6]">
+                        <Button>Sign up</Button>
+                    </div>
+                </Link>
+            </>
+        )
+    }
+
+    const SetButtonLg = () => {
+        if (cookies.get('token')) {
+            return (
+                <>
+                    <Link to="profile">
+                        <img src={selectImage()} alt="profile" className="w-10 h-10 rounded-full object-cover" />
+                    </Link>
+                    <Link to="login">
+                        <div className="bg-[#FA5252] rounded-sm">
+                            <Button variant="filled" color="red" onClick={() => {
+                                cookies.remove('token')
+                                cookies.remove('image')
+                                cookies.remove('username')
+                                updateContext(!refresh);
+                            }} >Logout</Button>
+                        </div>
+                    </Link>
+                </>
+            )
+        }
+        return (
+            <>
+                <Link to="login">
+                    <Button variant="default">Login</Button>
+                </Link>
+                <Link to="register">
+                    <div className="bg-blue-500 rounded-sm">
+                        <Button>Register</Button>
+                    </div>
+                </Link>
+            </>
+        )
+    }
+
+    const selectImage = (): string => {
+        if (cookies.get('image')) {
+            return cookies.get('image')
+        }
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
+    }
 
     return (
         <Box pb={120}>
@@ -204,10 +284,7 @@ export default function HeaderNav() {
                     </Group>
 
                     <Group className={classes.hiddenMobile}>
-                        <Button variant="default">Log in</Button>
-                        <div className="bg-blue-500 rounded-sm">
-                            <Button>Sign up</Button>
-                        </div>
+                        <SetButtonLg />
                     </Group>
 
                     <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} />
@@ -241,10 +318,7 @@ export default function HeaderNav() {
                     <Collapse in={linksOpened}>{links}</Collapse>
                     <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
                     <Group position="center" grow pb="xl" px="md" className="px-5">
-                        <Button variant="default">Log in</Button>
-                        <div className="bg-blue-500 rounded-sm flex align-middle justify-center hover:bg-[#1C7ED6]">
-                            <Button>Sign up</Button>
-                        </div>
+                        <SetButtonSm />
                     </Group>
                 </ScrollArea>
             </Drawer>

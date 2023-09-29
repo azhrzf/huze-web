@@ -6,6 +6,7 @@ import BlogSection from "./BlogSection"
 import IntroLayout from '../../components/Intro';
 import { InfinitySpin } from 'react-loader-spinner'
 import { usedApi, version } from '../../RouteApi'
+import logoH from "../../assets/images/logos/huzelogoH.png"
 
 const BlogLayout = () => {
 
@@ -119,7 +120,7 @@ const BlogLayout = () => {
                                     title={blog.title}
                                     description={shortenSentence(blog.article, 20)}
                                     rating={blog.label}
-                                    author={{ name: blog.writer, image: blog.thumbnail }}
+                                    author={{ name: blog.writer, image: logoH }}
                                     className="mb-5 md:mb-0 h-full flex flex-col justify-between"
                                 />
                             </div>

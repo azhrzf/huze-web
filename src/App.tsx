@@ -1,4 +1,6 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { createContext, useState } from "react";
+
 import LayoutComponent from "./components/LayoutComponent";
 import HomeLayout from "./pages/Home";
 import IdentifyLayout from "./pages/Identify";
@@ -11,9 +13,30 @@ import HuzepediaLayout from "./pages/Huzepedia";
 import HzuepediaDetailCatsLayout from "./pages/HuzepediaDetail/HuzepediaDetailCats";
 import HzuepediaDetailDogsLayout from "./pages/HuzepediaDetail/HuzepediaDetailDogs";
 import AboutLayout from "./pages/About";
+import Login from "./pages/Logreg/Login";
+import Register from "./pages/Logreg/Register";
+
+interface GlobalContextType {
+  refresh: boolean;
+  updateContext: (refresh: boolean) => void;
+}
+
+const GlobalContext = createContext<GlobalContextType>({
+  refresh: false,
+  updateContext: () => { },
+});
 
 const App = () => {
+
+  const [contextValues, setContextValues] = useState<GlobalContextType>({
+    refresh: false,
+    updateContext: (refresh: boolean) => {
+      setContextValues({ ...contextValues, refresh });
+    },
+  });
+
   return (
+    <GlobalContext.Provider value={contextValues}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LayoutComponent />}>
@@ -28,13 +51,17 @@ const App = () => {
           <Route path="huzepedia/cats/:catId" element={<HzuepediaDetailCatsLayout />} />
           <Route path="huzepedia/dogs/:dogId" element={<HzuepediaDetailDogsLayout />} />
           <Route path="about" element={<AboutLayout />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>
+    </GlobalContext.Provider>
   )
 }
 
 export default App
+export { GlobalContext }
 
 {/* <BrowserRouter>
     <Routes>
