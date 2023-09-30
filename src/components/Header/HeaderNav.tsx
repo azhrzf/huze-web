@@ -29,7 +29,7 @@ import {
 } from '@tabler/icons-react';
 import Cookies from 'universal-cookie';
 import { GlobalContext } from "../../App";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
 const useStyles = createStyles((theme) => ({
 
@@ -134,9 +134,9 @@ const mockdata = [
     },
 ];
 
-const cookies = new Cookies()
-
 export default function HeaderNav() {
+
+    const cookies = useMemo(() => new Cookies(), []);
 
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -164,19 +164,30 @@ export default function HeaderNav() {
 
     const { refresh, updateContext } = useContext(GlobalContext);
 
+    const selectImage = (): string => {
+        if (cookies.get('image') && cookies.get('image') !== "no_picture") {
+            return cookies.get('image')
+        }
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
+    }
+
+    const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        event.currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png";
+    }
+
     const SetButtonSm = () => {
         if (cookies.get('token')) {
             return (
                 <>
                     <Link to="profile" className="ml-4">
-                        <img src={selectImage()} alt="profile" className="w-10 h-10 rounded-full object-cover" />
+                        <img src={selectImage()} onError={handleImgError} alt="profile" className="w-10 h-10 rounded-full object-cover" />
                     </Link>
                     <Link to="login">
                         <div className="bg-[#FA5252] rounded-sm flex align-middle justify-center hover:bg-[#F03E3E]">
                             <Button variant="filled" color="red" onClick={() => {
-                                cookies.remove('token')
-                                cookies.remove('image')
-                                cookies.remove('username')
+                                cookies.remove('token', { path: '/' })
+                                cookies.remove('image', { path: '/' })
+                                cookies.remove('username', { path: '/' })
                                 updateContext(!refresh);
                             }} >Logout</Button>
                         </div>
@@ -206,14 +217,14 @@ export default function HeaderNav() {
             return (
                 <>
                     <Link to="profile">
-                        <img src={selectImage()} alt="profile" className="w-10 h-10 rounded-full object-cover" />
+                        <img src={selectImage()} onError={handleImgError} alt="profile" className="w-10 h-10 rounded-full object-cover" />
                     </Link>
                     <Link to="login">
                         <div className="bg-[#FA5252] rounded-sm">
                             <Button variant="filled" color="red" onClick={() => {
-                                cookies.remove('token')
-                                cookies.remove('image')
-                                cookies.remove('username')
+                                cookies.remove('token', { path: '/' })
+                                cookies.remove('image', { path: '/' })
+                                cookies.remove('username', { path: '/' })
                                 updateContext(!refresh);
                             }} >Logout</Button>
                         </div>
@@ -233,13 +244,6 @@ export default function HeaderNav() {
                 </Link>
             </>
         )
-    }
-
-    const selectImage = (): string => {
-        if (cookies.get('image')) {
-            return cookies.get('image')
-        }
-        return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
     }
 
     return (

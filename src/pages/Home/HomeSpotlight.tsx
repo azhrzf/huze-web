@@ -105,14 +105,14 @@ const HomeSpotlight = () => {
                         <Group mt={30}>
                             <Link to="identify">
                                 <div className="bg-blue-500 rounded-full">
-                                    <Button radius="xl" size="md" className={classes.control}>
-                                        Start Identifying
+                                    <Button radius="xl" size="sm" className={classes.control}>
+                                        <span className="text-xs md:text-sm">Start Identifying</span>
                                     </Button>
                                 </div>
                             </Link>
-                            <Link to="blogs">
-                                <Button variant="default" radius="xl" size="md" className={classes.control}>
-                                    Read Blog
+                            <Link to="huzepedia">
+                                <Button variant="default" radius="xl" size="sm" className={classes.control}>
+                                    <span className="text-xs md:text-sm">Explore Huzepedia</span>
                                 </Button>
                             </Link>
                         </Group>

@@ -78,7 +78,7 @@ const BlogLayout = () => {
         return `${errorCode}`
     }
 
-    if (!blogData) {
+    if (blogData.length === 0) {
         return (
             <div className="container mx-auto max-w-screen-lg px-5 md:px-10 flex justify-center align-middle">
                 <InfinitySpin

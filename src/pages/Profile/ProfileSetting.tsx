@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
     TextInput,
     Anchor,
@@ -8,16 +8,17 @@ import {
     Container,
     Button,
 } from '@mantine/core';
-import { IconTrash } from '@tabler/icons-react';
+import { IconTrash, IconPencil, IconX, IconPhotoFilled } from '@tabler/icons-react';
 import axios from 'axios';
 import { usedApi, version } from '../../RouteApi'
 import { useState, useContext, useEffect, useMemo } from 'react';
 import Cookies from 'universal-cookie';
 import { GlobalContext } from '../../App';
+import { InfinitySpin } from 'react-loader-spinner'
 
 const ProfileSetting = () => {
 
-    const { userId } = useParams()
+    const cookies = useMemo(() => new Cookies(), []);
 
     const [data, setData] = useState({
         username: '',
@@ -28,6 +29,8 @@ const ProfileSetting = () => {
     const [isButtonValid, setIsButtonValid] = useState(false)
     const [isError, setIsError] = useState({ status: false, message: "" })
     const [startEdit, setStartEdit] = useState(false)
+    const [imgDeletePass, setImgDeletePass] = useState(false)
+    const [imgAppearHelper, setImgAppearHelper] = useState(false)
 
     interface Data {
         username: string,
@@ -51,23 +54,38 @@ const ProfileSetting = () => {
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
-            setFile(event.target.files[0]);
+            const file = event.target.files && event.target.files[0];
+            if (file && file.size <= 5 * 1024 * 1024) {
+                setFile(event.target.files[0]);
+            }
+            else {
+                setIsError({
+                    status: true,
+                    message: "File size must be less than 5 MB"
+                })
+            }
         }
+        setImgAppearHelper(true)
     };
-
-    const cookies = useMemo(() => new Cookies(), []);
 
     const { refresh, updateContext } = useContext(GlobalContext);
 
     const handleSubmit = async (data: Data) => {
         try {
-            const response = await axios.patch(`${usedApi}${version}/users/${userId}`, file ? { ...data, image: file } : data, {
+            const response = await axios.patch(`${usedApi}${version}/users/${cookies.get('username')}`,
+                file ? { ...data, image: file } : data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${cookies.get('token')}`
                 },
             });
+            console.log(response.data)
             if (response.data.status === 'success') {
-                updateContext(!refresh)
+                alert("Profile updated")
+                setIsButtonValid(false)
+                setStartEdit(false)
+                cookies.set('username', response.data.data.username, { path: '/' })
+                cookies.set('image', response.data.data.image, { path: '/' })
             }
             else if (response.data.status === 'fail') {
                 setIsError({
@@ -75,6 +93,11 @@ const ProfileSetting = () => {
                     message: response.data.message
                 })
             }
+            if (imgDeletePass) {
+                handleImgDelete()
+                setImgDeletePass(false)
+            }
+            updateContext(!refresh)
         }
         catch (error) {
             console.error(error);
@@ -82,6 +105,9 @@ const ProfileSetting = () => {
     };
 
     const validateAll = (allData: Data): boolean => {
+        if (!startEdit) {
+            return false
+        }
         for (const value of Object.values(allData)) {
             if (value === '') {
                 return false
@@ -109,7 +135,7 @@ const ProfileSetting = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${usedApi}${version}/users/${userId}`, {
+                const response = await axios.get(`${usedApi}${version}/users/${cookies.get('username')}`, {
                     headers: {
                         Authorization: `Bearer ${cookies.get('token')}`
                     }
@@ -124,7 +150,7 @@ const ProfileSetting = () => {
                         firstName: response.data.data.firstName,
                         lastName: response.data.data.lastName,
                     })
-                    cookies.set('image', response.data.data.image, { path: '/' })
+                    cookies.set('image', response.data.data.users.image, { path: '/' })
                 }
                 else if (response.data.status === 'fail') {
                     setIsError({
@@ -137,7 +163,7 @@ const ProfileSetting = () => {
             }
         }
         fetchData()
-    }, [cookies, userId])
+    }, [cookies])
 
     if (!cookies.get('token')) {
         return (
@@ -162,9 +188,21 @@ const ProfileSetting = () => {
             </Container>
         )
     }
+    else if (cookies.get('token') && data.username === '') {
+        return (
+            <div className="container mx-auto max-w-screen-lg px-5 md:px-10 flex justify-center align-middle">
+                <InfinitySpin
+                    color="#3B82F6"
+                />
+            </div>
+        )
+    }
 
     const selectImage = (file: File | null): string => {
-        if (cookies.get('image') && !file) {
+        if (cookies.get('image') && cookies.get('image') !== "no_picture" && file === null && imgDeletePass && startEdit && !imgAppearHelper) {
+            return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
+        }
+        else if (cookies.get('image') && cookies.get('image') !== "no_picture" && file === null) {
             return cookies.get('image')
         }
         else if (file) {
@@ -188,26 +226,30 @@ const ProfileSetting = () => {
     }
 
     const DeleteImgButton = ({ file }: DeleteImgButtonProps) => {
+        const needed = {
+            className: `inline ml-2 ${isButtonValid && imgAppearHelper ? "text-red-500 cursor-pointer" : "text-gray-400"}`,
+            size: 18,
+        }
+
         if (cookies.get('image') && !file) {
             return <IconTrash
-                className={`inline ml-2 ${isButtonValid ? "text-red-500 cursor-pointer" : "text-gray-400"}`}
-                size={18}
+                {...needed}
                 onClick={() => {
-                    if (isButtonValid) {
-                        cookies.remove('image')
+                    if (isButtonValid && imgAppearHelper) {
                         setFile(null)
-                        handleImgDelete()
+                        setImgDeletePass(true)
+                        setImgAppearHelper(false)
                     }
                 }}
             />
         }
         else if (file) {
             return <IconTrash
-                className={`inline ml-2 ${isButtonValid ? "text-red-500 cursor-pointer" : "text-gray-400"}`}
-                size={18}
+                {...needed}
                 onClick={() => {
-                    if (isButtonValid) {
+                    if (isButtonValid && imgAppearHelper) {
                         setFile(null)
+                        setImgAppearHelper(false)
                     }
                 }}
             />
@@ -217,7 +259,7 @@ const ProfileSetting = () => {
     const handleImgDelete = async () => {
         try {
             if (cookies.get('image') && !file) {
-                const response = await axios.patch(`${usedApi}${version}/${userId}/delimage`, {}, {
+                const response = await axios.patch(`${usedApi}${version}/users/${cookies.get('username')}/delimage`, {}, {
                     headers: {
                         Authorization: `Bearer ${cookies.get('token')}`
                     }
@@ -245,14 +287,7 @@ const ProfileSetting = () => {
     }
 
     return (
-        <Container size={420} className='px-10 md:px-0'>
-            <Title ta="center">
-                Your Huze Profile
-            </Title>
-            <Text c="dimmed" size="sm" ta="center" mt={5}>
-                Your profile page is your digital storefront.
-            </Text>
-
+        <>
             <Paper withBorder shadow="md" p={30} mt={30} radius="md">
                 {Object.keys(data).map(key => {
                     return (
@@ -265,12 +300,13 @@ const ProfileSetting = () => {
                             name={key}
                             className='mb-3'
                             disabled={!startEdit}
+                            value={data[key as keyof Data]}
                         />
                     )
                 })}
                 <section className='my-6'>
                     <label htmlFor="file-upload" className={`${isButtonValid ? "bg-blue-500 hover:bg-blue-600 text-white cursor-pointer" : "bg-[#E9ECEF] text-[#B1B8BF]"} text-xs font-semibold py-2 px-4 rounded`}>
-                        Choose Profile Picture
+                        <IconPhotoFilled size={18} className='inline' />
                     </label>
                     <img
                         src={selectImage(file)}
@@ -290,8 +326,10 @@ const ProfileSetting = () => {
                         className='bg-[#3B82F6] col-span-1'
                         onClick={() => {
                             setStartEdit(!startEdit)
+                            setImgAppearHelper(!startEdit)
+                            setIsButtonValid(!validateAll(data))
                         }}>
-                        {startEdit ? "Cancel" : "Edit"}
+                        {startEdit ? <IconX /> : <IconPencil />}
                     </Button>
                     <Button
                         fullWidth
@@ -306,7 +344,7 @@ const ProfileSetting = () => {
                 </section>
                 {isError.status && <Text color="red" mt="md" className='text-center'>{isError.message}</Text>}
             </Paper>
-        </Container>
+        </>
     );
 }
 

@@ -11,7 +11,7 @@ import {
 } from '@mantine/core';
 import axios from 'axios';
 import { usedApi, version } from '../../RouteApi'
-import { useState, useContext } from 'react';
+import { useState, useContext, useMemo } from 'react';
 import Cookies from 'universal-cookie';
 import { GlobalContext } from '../../App';
 
@@ -44,7 +44,7 @@ const Login = () => {
         })
     }
 
-    const cookies = new Cookies()
+    const cookies = useMemo(() => new Cookies(), []);
     const navigate = useNavigate();
 
     const { refresh, updateContext } = useContext(GlobalContext);

@@ -120,7 +120,7 @@ const HuzepediaList = () => {
         return `${errorCode}`
     }
 
-    if (!catData || !dogData) {
+    if (catData.length === 0 || dogData.length === 0) {
         return (
             <div className="container mx-auto max-w-screen-lg px-5 md:px-10 flex justify-center align-middle">
                 <InfinitySpin
