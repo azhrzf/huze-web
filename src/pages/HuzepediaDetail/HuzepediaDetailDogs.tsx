@@ -119,61 +119,34 @@ const HuzepediaDetailDogs = () => {
                 </div>
                 <section className='mt-5'>
                     <h1 className='text-[#4c6075] text-2xl font-semibold'>Characteristic</h1>
-                    <div className='grid grid-cols-3 gap-4 mt-3'>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Life Span</h1>
-                            <Text color="dimmed" className='mt-3'>
-                                {data.characteristics.life_span}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Height</h1>
-                            <Text color="dimmed" className='mt-3'>
-                                {data.characteristics.height}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Weight</h1>
-                            <Text color="dimmed" className='mt-3'>
-                                {data.characteristics.weight}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Origin</h1>
-                            <Text color="dimmed" className='mt-3'>
-                                {data.characteristics.origin}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Adaptability</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.adaptability)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Friendliness</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.friendliness)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>HNG Needs</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.hngneeds)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Trainability</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.trainability)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Exercise</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.exercise)}
-                            </Text>
-                        </article>
+                    <div className='grid grid-cols-2 md:grid-cols-3 gap-4 mt-3'>
+                        {Object.keys(data.characteristics).filter(key => key !== "id").map(key => {
+                            const desc = (txt: string | number) => {
+                                if (typeof txt === "number") {
+                                    return (
+                                        <Text color="dimmed" className='mt-3 flex'>
+                                            {PrintStars(Number(txt))}
+                                        </Text>
+                                    )
+                                }
+                                return (
+                                    <Text color="dimmed" className='mt-3'>
+                                        {txt}
+                                    </Text>
+                                )
+                            }
+                            return (
+                                <article key={key}>
+                                    <h1 className='text-[#4c6075] text-lg font-normal'>
+                                        {key.replace(/_/g, ' ')
+                                            .split(' ')
+                                            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                                            .join(' ')}
+                                    </h1>
+                                    {desc(data.characteristics[key as keyof DogChar])}
+                                </article>
+                            )
+                        })}
                     </div>
                 </section>
                 <section className='mt-5'>

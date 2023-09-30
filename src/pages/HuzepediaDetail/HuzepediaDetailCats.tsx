@@ -110,7 +110,7 @@ const HuzepediaDetailCats = () => {
         return (
             <article className="container mx-auto max-w-screen-lg px-5 md:px-10">
                 <Link to="../../" relative='path'>
-                    <p className='text-[#3B82F6] mb-4 flex items-center'><IconArrowLeftBar size="30px"/>Back to Huzepedia</p>
+                    <p className='text-[#3B82F6] mb-4 flex items-center'><IconArrowLeftBar size="30px" />Back to Huzepedia</p>
                 </Link>
                 <div className="mb-10">
                     <img src={data.image} alt={data.breed} className="w-full rounded-lg mb-10" />
@@ -122,79 +122,34 @@ const HuzepediaDetailCats = () => {
                 </div>
                 <section className='mt-5'>
                     <h1 className='text-[#4c6075] text-2xl font-semibold'>Characteristic</h1>
-                    <div className='grid grid-cols-3 gap-4 mt-3'>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Life Span</h1>
-                            <Text color="dimmed" className='mt-3'>
-                                {data.characteristics.life_span}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Length</h1>
-                            <Text color="dimmed" className='mt-3'>
-                                {data.characteristics.length}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Weight</h1>
-                            <Text color="dimmed" className='mt-3'>
-                                {data.characteristics.weight}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Origin</h1>
-                            <Text color="dimmed" className='mt-3'>
-                                {data.characteristics.origin}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Affectionate</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.affectionate)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Health</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.health)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Playfulness</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.playfulness)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Kid Friendly</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.kid_friendly)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Strangers Friendly</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.strangers_friendly)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Pet Friendly</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.pet_friendly)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Groom</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.groom)}
-                            </Text>
-                        </article>
-                        <article>
-                            <h1 className='text-[#4c6075] text-lg font-normal'>Intelligence</h1>
-                            <Text color="dimmed" className='mt-3 flex'>
-                                {PrintStars(data.characteristics.intelligence)}
-                            </Text>
-                        </article>
+                    <div className='grid grid-cols-2 md:grid-cols-3 gap-4 mt-3'>
+                        {Object.keys(data.characteristics).filter(key => key !== "id").map(key => {
+                            const desc = (txt: string | number) => {
+                                if (typeof txt === "number") {
+                                    return (
+                                        <Text color="dimmed" className='mt-3 flex'>
+                                            {PrintStars(Number(txt))}
+                                        </Text>
+                                    )
+                                }
+                                return (
+                                    <Text color="dimmed" className='mt-3'>
+                                        {txt}
+                                    </Text>
+                                )
+                            }
+                            return (
+                                <article key={key}>
+                                    <h1 className='text-[#4c6075] text-lg font-normal'>
+                                        {key.replace(/_/g, ' ')
+                                            .split(' ')
+                                            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                                            .join(' ')}
+                                    </h1>
+                                    {desc(data.characteristics[key as keyof CatChar])}
+                                </article>
+                            )
+                        })}
                     </div>
                 </section>
                 <section className='mt-5'>

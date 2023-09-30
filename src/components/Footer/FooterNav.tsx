@@ -126,34 +126,36 @@ const FooterNav = ({ data }: FooterLinksProps) => {
 
     return (
         <footer className={classes.footer} >
-            <Container className={classes.inner}>
-                <div className={classes.logo}>
-                    <Link to="/">
-                        <img src={huzelogo} alt="logo" className="w-20" />
-                    </Link>
-                    <Text size="xs" color="dimmed" className={classes.description}>
-                        A site that can help users learn more about their pets and how to care for them.
+            <div className="md:px-5">
+                <Container className={classes.inner}>
+                    <div className={classes.logo}>
+                        <Link to="/">
+                            <img src={huzelogo} alt="logo" className="w-20" />
+                        </Link>
+                        <Text size="xs" color="dimmed" className={classes.description}>
+                            A site that can help users learn more about their pets and how to care for them.
+                        </Text>
+                    </div>
+                    <div className={classes.groups}>{groups}</div>
+                </Container>
+                <Container className={classes.afterFooter}>
+                    <Text color="dimmed" size="sm">
+                        © {`${new Date().getFullYear()}`} huze. All rights reserved.
                     </Text>
-                </div>
-                <div className={classes.groups}>{groups}</div>
-            </Container>
-            <Container className={classes.afterFooter}>
-                <Text color="dimmed" size="sm">
-                    © {`${new Date().getFullYear()}`} huze. All rights reserved.
-                </Text>
 
-                <Group spacing={0} className={classes.social} position="right" noWrap>
-                    <ActionIcon size="lg">
-                        <IconBrandTwitter size="1.05rem" stroke={1.5} />
-                    </ActionIcon>
-                    <ActionIcon size="lg">
-                        <IconBrandYoutube size="1.05rem" stroke={1.5} />
-                    </ActionIcon>
-                    <ActionIcon size="lg">
-                        <IconBrandInstagram size="1.05rem" stroke={1.5} />
-                    </ActionIcon>
-                </Group>
-            </Container>
+                    <Group spacing={0} className={classes.social} position="right" noWrap>
+                        <ActionIcon size="lg">
+                            <IconBrandTwitter size="1.05rem" stroke={1.5} />
+                        </ActionIcon>
+                        <ActionIcon size="lg">
+                            <IconBrandYoutube size="1.05rem" stroke={1.5} />
+                        </ActionIcon>
+                        <ActionIcon size="lg">
+                            <IconBrandInstagram size="1.05rem" stroke={1.5} />
+                        </ActionIcon>
+                    </Group>
+                </Container>
+            </div>
         </footer>
     );
 }

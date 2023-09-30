@@ -3,20 +3,22 @@ import { createContext, useState } from "react";
 
 import LayoutComponent from "./components/LayoutComponent";
 import HomeLayout from "./pages/Home";
-import IdentifyLayout from "./pages/Identify";
+// import IdentifyLayout from "./pages/Identify";
 import BlogLayout from "./pages/Blog";
 import BlogDetailLayout from "./pages/BlogDetail";
-import PetsLayout from "./pages/Pets";
+// import PetsLayout from "./pages/Pets";
 import ProfileLayout from "./pages/Profile";
 import ProfileSetting from "./pages/Profile/ProfileSetting";
 import ProfilePassword from "./pages/Profile/ProfilePassword";
-import ShopLayout from "./pages/Shop";
+// import ShopLayout from "./pages/Shop";
 import HuzepediaLayout from "./pages/Huzepedia";
 import HzuepediaDetailCatsLayout from "./pages/HuzepediaDetail/HuzepediaDetailCats";
 import HzuepediaDetailDogsLayout from "./pages/HuzepediaDetail/HuzepediaDetailDogs";
-import AboutLayout from "./pages/About";
+// import AboutLayout from "./pages/About";
 import Login from "./pages/Logreg/Login";
 import Register from "./pages/Logreg/Register";
+import NothingFoundBackground from "./components/Error/404";
+import ComingSoon from "./components/Coming";
 
 interface GlobalContextType {
   refresh: boolean;
@@ -43,21 +45,23 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LayoutComponent />}>
             <Route index element={<HomeLayout />} />
-            <Route path="identify" element={<IdentifyLayout />} />
+            <Route path="identify" element={<ComingSoon />} />
             <Route path="blogs" element={<BlogLayout />} />
             <Route path="blogs/:blogId" element={<BlogDetailLayout />} />
-            <Route path="pets" element={<PetsLayout />} />
+            <Route path="pets" element={<ComingSoon />} />
             <Route path="profile" element={<ProfileLayout />}>
               <Route index element={<ProfileSetting />} />
               <Route path="password" element={<ProfilePassword />} />
             </Route>
-            <Route path="shop" element={<ShopLayout />} />
+            <Route path="shop" element={<ComingSoon />} />
             <Route path="huzepedia" element={<HuzepediaLayout />} />
             <Route path="huzepedia/cats/:catId" element={<HzuepediaDetailCatsLayout />} />
             <Route path="huzepedia/dogs/:dogId" element={<HzuepediaDetailDogsLayout />} />
-            <Route path="about" element={<AboutLayout />} />
+            <Route path="about" element={<ComingSoon />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="dj" element={<ComingSoon />} />
+            <Route path="*" element={<NothingFoundBackground />} />
           </Route>
         </Routes>
       </BrowserRouter>

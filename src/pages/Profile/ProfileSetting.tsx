@@ -286,6 +286,10 @@ const ProfileSetting = () => {
         }
     }
 
+    const handleImgError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        event.currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png";
+    }
+
     return (
         <>
             <Paper withBorder shadow="md" p={30} mt={30} radius="md">
@@ -311,6 +315,7 @@ const ProfileSetting = () => {
                     <img
                         src={selectImage(file)}
                         alt={selectImage(file)}
+                        onError={handleImgError}
                         className='ml-3 inline w-10 h-10 rounded-full object-cover'
                     />
                     <DeleteImgButton file={file} />
