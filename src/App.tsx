@@ -60,8 +60,7 @@ const App = () => {
             <Route path="about" element={<ComingSoon />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
-            <Route path="dj" element={<ComingSoon />} />
-            <Route path="*" element={<NothingFoundBackground />} />
+            <Route path="404" element={<NothingFoundBackground />} />
           </Route>
         </Routes>
       </BrowserRouter>

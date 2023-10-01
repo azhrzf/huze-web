@@ -143,7 +143,7 @@ export default function HeaderNav() {
     const { classes, theme } = useStyles();
 
     const links = mockdata.map((item) => (
-        <Link to={item.title.toLowerCase()} key={item.title} className="px-5 md:px-0">
+        <Link to={item.title.toLowerCase()} onClick={closeDrawer} key={item.title} className="px-5 md:px-0">
             <UnstyledButton className={classes.subLink}>
                 <Group noWrap align="flex-start">
                     <ThemeIcon size={34} variant="default" radius="md">
@@ -179,10 +179,10 @@ export default function HeaderNav() {
         if (cookies.get('token')) {
             return (
                 <>
-                    <Link to="profile" className="ml-4">
+                    <Link to="profile" onClick={closeDrawer} className="ml-4">
                         <img src={selectImage()} onError={handleImgError} alt="profile" className="w-10 h-10 rounded-full object-cover" />
                     </Link>
-                    <Link to="login">
+                    <Link to="login" onClick={closeDrawer}>
                         <div className="bg-[#FA5252] rounded-sm flex align-middle justify-center hover:bg-[#F03E3E]">
                             <Button variant="filled" color="red" onClick={() => {
                                 cookies.remove('token', { path: '/' })
@@ -198,12 +198,12 @@ export default function HeaderNav() {
         }
         return (
             <>
-                <Link to="login">
+                <Link to="login" onClick={closeDrawer}>
                     <div className="rounded-sm flex align-middle justify-center">
                         <Button variant="default" className="w-full">Log in</Button>
                     </div>
                 </Link>
-                <Link to="register">
+                <Link to="register" onClick={closeDrawer}>
                     <div className="bg-blue-500 rounded-sm flex align-middle justify-center hover:bg-[#1C7ED6]">
                         <Button>Sign up</Button>
                     </div>
@@ -300,14 +300,14 @@ export default function HeaderNav() {
                 onClose={closeDrawer}
                 size="100%"
                 padding="md"
-                title={<img src={huzelogo} alt="logo" className="w-20 mx-5" />}
+                title={<Link to="/" onClick={closeDrawer}><img src={huzelogo} alt="logo" className="w-20 mx-5" /></Link>}
                 className={classes.hiddenDesktop}
                 zIndex={1000000}
             >
                 <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
                     <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
                     <section className="px-5">
-                        <NavLink to="." className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>Home</NavLink>
+                        <NavLink to="." onClick={closeDrawer} className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>Home</NavLink>
                         <UnstyledButton className={classes.link} onClick={toggleLinks}>
                             <Center inline>
                                 <Box component="span" mr={5}>
@@ -316,8 +316,8 @@ export default function HeaderNav() {
                                 <IconChevronDown size={16} color={theme.fn.primaryColor()} />
                             </Center>
                         </UnstyledButton>
-                        <NavLink to="blogs" className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>Blog</NavLink>
-                        <NavLink to="about" className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>About</NavLink>
+                        <NavLink to="blogs" onClick={closeDrawer} className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>Blog</NavLink>
+                        <NavLink to="about" onClick={closeDrawer} className={({ isActive }: { isActive: boolean }) => isActive ? classes.activeLink : classes.link}>About</NavLink>
                     </section>
                     <Collapse in={linksOpened}>{links}</Collapse>
                     <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
