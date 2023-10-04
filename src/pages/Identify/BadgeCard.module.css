@@ -1,0 +1,35 @@
+.card {
+    background-color: #FFFFFF;
+    background-color: var(--mantine-color-white, #FFFFFF);
+    background-color: light-dark(#FFFFFF, #1C1F22);
+    background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-7));
+}
+
+.section {
+    border-bottom: 1px solid #E3E4E6;
+    border-bottom: 1px solid var(--mantine-color-gray-3, #E3E4E6);
+    border-bottom: 1px solid light-dark(#E3E4E6, #1C1F22);
+    border-bottom: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+    padding-left: 20px;
+    padding-left: var(--mantine-spacing-md, 20px);
+    padding-right: 20px;
+    padding-right: var(--mantine-spacing-md, 20px);
+    padding-bottom: 20px;
+    padding-bottom: var(--mantine-spacing-md, 20px);
+}
+
+.like {
+    color: #FF5252;
+    color: var(--mantine-color-red-6, #FF5252);
+    width: 20px;
+    width: var(--mantine-size-xs, 20px);
+    height: 20px;
+    height: var(--mantine-size-xs, 20px);
+}
+
+.label {
+    text-transform: uppercase;
+    font-size: 20px;
+    font-size: var(--mantine-font-size-xs, 20px);
+    font-weight: 700;
+}

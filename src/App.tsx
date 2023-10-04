@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 
 import LayoutComponent from "./components/LayoutComponent";
 import HomeLayout from "./pages/Home";
-// import IdentifyLayout from "./pages/Identify";
+import IdentifyLayout from "./pages/Identify";
 import BlogLayout from "./pages/Blog";
 import BlogDetailLayout from "./pages/BlogDetail";
 // import PetsLayout from "./pages/Pets";
@@ -45,7 +45,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LayoutComponent />}>
             <Route index element={<HomeLayout />} />
-            <Route path="identify" element={<ComingSoon />} />
+            <Route path="identify" element={<IdentifyLayout />} />
             <Route path="blogs" element={<BlogLayout />} />
             <Route path="blogs/:blogId" element={<BlogDetailLayout />} />
             <Route path="pets" element={<ComingSoon />} />
@@ -61,6 +61,7 @@ const App = () => {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="404" element={<NothingFoundBackground />} />
+            <Route path="*" element={<NothingFoundBackground />} />
           </Route>
         </Routes>
       </BrowserRouter>
