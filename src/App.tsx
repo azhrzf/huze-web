@@ -14,7 +14,7 @@ import ProfilePassword from "./pages/Profile/ProfilePassword";
 import HuzepediaLayout from "./pages/Huzepedia";
 import HzuepediaDetailCatsLayout from "./pages/HuzepediaDetail/HuzepediaDetailCats";
 import HzuepediaDetailDogsLayout from "./pages/HuzepediaDetail/HuzepediaDetailDogs";
-// import AboutLayout from "./pages/About";
+import AboutLayout from "./pages/About";
 import Login from "./pages/Logreg/Login";
 import Register from "./pages/Logreg/Register";
 import NothingFoundBackground from "./components/Error/404";
@@ -57,7 +57,7 @@ const App = () => {
             <Route path="huzepedia" element={<HuzepediaLayout />} />
             <Route path="huzepedia/cats/:catId" element={<HzuepediaDetailCatsLayout />} />
             <Route path="huzepedia/dogs/:dogId" element={<HzuepediaDetailDogsLayout />} />
-            <Route path="about" element={<ComingSoon />} />
+            <Route path="about" element={<AboutLayout />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="404" element={<NothingFoundBackground />} />

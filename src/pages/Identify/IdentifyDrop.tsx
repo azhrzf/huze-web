@@ -149,7 +149,7 @@ const IdentifyDrop = () => {
             } else {
                 setIsError({
                     status: true,
-                    message: "Something went wrong"
+                    message: "Maaf server kami sedang tidak menerima request untuk saat ini."
                 });
             }
         }
