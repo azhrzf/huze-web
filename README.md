@@ -1,27 +1,59 @@
-# React + TypeScript + Vite
+# Huze
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Huze is a pet-focused web application that helps users identify cat and dog breeds from images and discover information about different breeds.
 
-Currently, two official plugins are available:
+The project combines a React-based web application with a machine learning-powered image identification service.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- 🐱 Cat breed identification
+- 🐶 Dog breed identification
+- 🔍 Image-based pet breed recognition
+- 📚 Huzepedia — breed information and characteristics
+- 🔐 User registration and authentication
+- 👤 User profiles
+- 📝 Pet-related articles and blogs
+- ❤️ Save/favorite pet breeds
+- 📊 Prediction confidence and model information
+- 🚦 Rate limiting for image identification requests
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+### Frontend
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- React
+- TypeScript
+- Vite
+- React Router
+- Mantine
+- Tailwind CSS
+- Axios
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Machine Learning
+
+The breed identification feature uses a machine learning model to classify uploaded pet images.
+
+The frontend communicates with the Huze API to process images and retrieve prediction results.
+
+## Architecture
+
+```text
+┌─────────────────────┐
+│     Huze Web        │
+│ React + TypeScript  │
+└──────────┬──────────┘
+           │
+           │ HTTP API
+           ▼
+┌─────────────────────┐
+│      Huze API       │
+│  Authentication     │
+│  Breed Information  │
+│  Image Prediction   │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ Machine Learning    │
+│       Model         │
+└─────────────────────┘
